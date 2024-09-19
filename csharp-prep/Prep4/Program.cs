@@ -24,13 +24,26 @@ class Program
         }
 
         int sum = 0;
-        foreach (int number in numbers)
+        foreach (int num in numbers)
         {
-            sum += number;
-            Console.WriteLine($"The sum is {sum}");
+            sum += num;
 
         }
 
-        // Console.WriteLine("Hello Prep4 World!");
+        Console.WriteLine($"The sum is {sum}");
+
+        float average = ((float)sum) / numbers.Count;
+        Console.WriteLine($"The average is {average}");
+
+        int highestNumber = -1;
+
+        foreach (int n in numbers)
+        {
+            if (n > highestNumber)
+            {
+                highestNumber = n;
+            }
+        }
+        Console.WriteLine($"The highest number is {highestNumber}");
     }
 }
