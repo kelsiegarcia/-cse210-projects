@@ -1,9 +1,7 @@
-// Class: Resume
 // Responsibilities:
-// Keeps track of the person's name and a list of their jobs.
+// Keeps track of the company, job title, start year, and end year.
 // Behaviors:
-// Displays the resume, which shows the name first, followed by displaying each one of the jobs.
-// Based on these descriptions, you could create class diagrams like the following:
+// Displays the job information 
 public class Job
 {
     public string _company;

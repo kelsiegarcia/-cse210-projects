@@ -10,7 +10,6 @@ class Program
         job1._startYear = 2024;
         job1._endYear = 2025;
 
-        // job1.DisplayJobDetails();
 
         Job job2 = new Job();
         job2._jobTitle = "Software Engineer";
