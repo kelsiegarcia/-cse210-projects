@@ -1,0 +1,28 @@
+Journal class 
+// store the list of entries
+_entries : List<Entry>
+
+// theJournal.AddEntry(anEntry);
+AddEntry(newEntry : Entry) : void
+
+//display all the entries calling the entry display method keeps details of the entries in the entry class. Plus I holds all the info anyway, why not display it
+
+DisplayAll() : void
+SaveToFile(file : string) : void
+LoadFromFile(file : string) : void
+
+PromptGenerator class
+// should store a list of potential prompts that can select randomly when selected
+_prompts : List<string>
+GetRandomPrompt() : string
+
+Entry class
+//should keep track of the date, prompt text, and text of entry
+_date : string
+_promptText : string
+_entryText : string
+Display() : void
+
+
+Program  class file
+Will handle most of the user interaction. 

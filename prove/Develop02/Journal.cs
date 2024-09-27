@@ -1,29 +1,65 @@
 // Class: Journal
 // Responsibilities:
+using System.IO;
 public class Journal
 {
-    // store the list of entries
-    public List<Entry> _entries;
-    // _entries: List<Entry>
-    // AddEntry(newEntry: Entry) : void
-    public void AddEntry(Entry newEntry)
-    {
-        // theJournal.AddEntry(anEntry);
-    }
-    //Behaviors:
-    //display all the entries calling the entry display method keeps details of the entries in the entry class. Plus I holds all the info anyway, why not display it
-    // DisplayAll() : void
-    public void DisplayAll()
-    {
-    }
+	// store the list of entries and defining objects
+	public List<Entry> _entries = new List<Entry>();
+	// get randomgenerator class create new object
+	public PromptGenerator _prompts = new PromptGenerator();
+	// AddEntry(newEntry: Entry) : void
+	// string filename = "myJournal.txt";
+	public void AddEntry()
+	{
+		Entry _entry = new Entry();
+		_entry._date = DateTime.Now.ToShortDateString();
+		_entry._promptText = _prompts.GetRandomPrompt();
+		Console.WriteLine($"Writing prompt: {_entry._promptText}");
+		_entry._entryText = Console.ReadLine();
 
-    // SaveToFile(file: string) : void
-    public void SaveToFile(string file)
-    {
-    }
+		_entries.Add(_entry);
 
-    // LoadFromFile(file: string) : void
-    public void LoadFromFile(string file)
-    {
-    }
+	}
+	//Behaviors:
+	//display all the entries calling the entry display method keeps details of the entries in the entry class. Plus I holds all the info anyway, why not display it
+	// DisplayAll() : void
+	public void DisplayAll()
+	{
+		foreach (Entry entry in _entries)
+		{
+			entry.DisplayEntry();
+			Console.WriteLine();
+		}
+	}
+	// Saving the new entry into file with all the other compiled entries
+	// SaveToFile(file: string) : void
+	public void SaveToFile(string filename)
+	{
+		using (StreamWriter sw = new StreamWriter(filename))
+		{
+			foreach (Entry entry in _entries)
+			{
+				sw.WriteLine($"{entry._date}|{entry._promptText}|{entry._entryText}");
+			}
+		}
+	}
+
+	// LoadFromFile(file: string) : void
+	public void LoadFromFile(string filename)
+	{
+		_entries.Clear();
+		string[] lines = File.ReadAllLines(filename);
+
+		foreach (string line in lines)
+		{
+			string[] parts = line.Split("|");
+
+			Entry _entry = new Entry();
+			_entry._date = parts[0];
+			_entry._promptText = parts[1];
+			_entry._entryText = parts[2];
+
+			_entries.Add(_entry);
+		}
+	}
 }

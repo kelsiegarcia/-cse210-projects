@@ -3,15 +3,22 @@
 // Display the entry information
 public class Entry
 {
-    // _date: string
-    public string _date;
-    // _promptText : string
-    public string _promptTemp;
-    // _entryText : string
-    public string _entryText;
-    // Behavior
-    // Display() : void
-    public void DisplayEntry()
-    {
-    }
+	// set all the Entry details with variables
+	// _date: string
+	public string _date;
+	// _promptText : string
+	public string _promptText;
+	// _entryText : string
+	public string _entryText;
+
+
+	// Behavior
+	// Display() : void
+	public void DisplayEntry()
+	{
+		Console.WriteLine($"Entry Date: {_date}");
+		Console.WriteLine($"Prompt Given: {_promptText}");
+		Console.WriteLine($"Your Entry: {_entryText}");
+
+	}
 }
