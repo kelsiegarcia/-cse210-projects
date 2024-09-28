@@ -4,11 +4,8 @@ class Program
 {
 	static void Main(string[] args)
 	{
-		// Entry entry = new Entry();
 
 		Journal journal = new Journal();
-		// entry.Display();
-
 		int number = -1;
 
 		while (number != 5)
@@ -35,15 +32,14 @@ class Program
 			}
 			else if (number == 3)
 			{
-				// readine and convert data type to string
-				Console.WriteLine("Name your file");
-				string selection = Convert.ToString(Console.ReadLine());
-				// how to get this string variable for the filename?
-				journal.SaveToFile("myJournal.txt");
+				Console.WriteLine("What would you like to save it as?");
+				string filename = Console.ReadLine();
+				journal.SaveToFile(filename);
 			}
 			else if (number == 4)
 			{
-				// readine and convert data type to string
+				Console.WriteLine("What is the name of the file?");
+				string filename = Console.ReadLine();
 				journal.LoadFromFile("myJournal.txt");
 			}
 			else if (number == 5)

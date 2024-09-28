@@ -1,6 +1,6 @@
+using System.IO;
 // Class: Journal
 // Responsibilities:
-using System.IO;
 public class Journal
 {
 	// store the list of entries and defining objects
@@ -8,7 +8,6 @@ public class Journal
 	// get randomgenerator class create new object
 	public PromptGenerator _prompts = new PromptGenerator();
 	// AddEntry(newEntry: Entry) : void
-	// string filename = "myJournal.txt";
 	public void AddEntry()
 	{
 		Entry _entry = new Entry();
@@ -33,6 +32,8 @@ public class Journal
 	}
 	// Saving the new entry into file with all the other compiled entries
 	// SaveToFile(file: string) : void
+	// how can i check that it saved? and does the user need to write with "" everytime the save and load?
+	string filename = "myJournal.txt";
 	public void SaveToFile(string filename)
 	{
 		using (StreamWriter sw = new StreamWriter(filename))
@@ -43,12 +44,12 @@ public class Journal
 			}
 		}
 	}
-
 	// LoadFromFile(file: string) : void
 	public void LoadFromFile(string filename)
 	{
 		_entries.Clear();
-		string[] lines = File.ReadAllLines(filename);
+		string[] lines = System.IO.File.ReadAllLines(filename);
+		// string[] lines = File.ReadAllLines(filename);
 
 		foreach (string line in lines)
 		{
