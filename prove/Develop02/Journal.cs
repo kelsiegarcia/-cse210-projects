@@ -33,7 +33,6 @@ public class Journal
 	// Saving the new entry into file with all the other compiled entries
 	// SaveToFile(file: string) : void
 	// how can i check that it saved? and does the user need to write with "" everytime the save and load?
-	string filename = "myJournal.txt";
 	public void SaveToFile(string filename)
 	{
 		using (StreamWriter sw = new StreamWriter(filename))

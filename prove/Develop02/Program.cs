@@ -40,7 +40,7 @@ class Program
 			{
 				Console.WriteLine("What is the name of the file?");
 				string filename = Console.ReadLine();
-				journal.LoadFromFile("myJournal.txt");
+				journal.LoadFromFile(filename);
 			}
 			else if (number == 5)
 			{
