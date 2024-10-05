@@ -3,31 +3,32 @@
 // _chapter : int
 // _verse : int
 // _endVerse : int ?
-
-// Ether 12:4
-
-// Wherefore, whoso believeth in God might with surety hope for a better world, yea, even a place at the right hand of God, which hope cometh of faith, maketh an anchor to the souls of men, which would make them sure and steadfast, always abounding in good works, being led to glorify God.
-
 public class Reference
 
 {
-	// private string _book;
-	// private int _chapter;
-	// private int _verse;
-	// private int _endVerse;
+	private string _book;
+	private int _chapter;
+	private int _verse;
+	private int _endVerse;
 
 	public Reference(string book, int chapter, int verse)
 	{
-		return;
+		_book = book;
+		_chapter = chapter;
+		_verse = verse;
+
 	}
 
 	public Reference(string book, int chapter, int verse, int endVerse)
 	{
-		return;
+		_book = book;
+		_chapter = chapter;
+		_verse = verse;
+		_endVerse = endVerse;
 	}
 
 	public string GetDisplayText()
 	{
-		return "";
+		return _endVerse > 0 ? $"{_book} {_chapter}:{_verse}-{_endVerse}" : $"{_book} {_chapter}:{_verse}";
 	}
 }

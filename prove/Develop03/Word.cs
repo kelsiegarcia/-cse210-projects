@@ -4,32 +4,40 @@
 
 public class Word
 {
-	public string _text;
-	public bool _isHidden;
+	private string _text;
+	private bool _isHidden = false;
 
 
-	public Word(string _text)
+	public Word(string text)
 	{
-		return;
+		_text = text;
+		_isHidden = false;
 	}
 
 	public void Hide()
 	{
-
+		_isHidden = true;
 	}
 
 	public void Show()
 	{
-
+		_isHidden = false;
 	}
 
 	public bool IsHidden()
 	{
-		return;
+		return _isHidden;
 	}
 
 	public string GetDisplayText()
 	{
-		return "";
+		if (IsHidden())
+		{
+			return " ";
+		}
+		else
+		{
+			return _text;
+		}
 	}
 }
