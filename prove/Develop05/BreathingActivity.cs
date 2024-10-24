@@ -7,7 +7,6 @@ public class BreathingActivity : Activity
 	{
 
 	}
-
 	public void Run(int duration)
 	{
 		DisplayStartingMessage();
