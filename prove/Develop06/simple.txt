@@ -1,0 +1,2 @@
+simple,description,System.Func`1[System.Boolean]
+eternal,description,System.Func`1[System.Boolean]

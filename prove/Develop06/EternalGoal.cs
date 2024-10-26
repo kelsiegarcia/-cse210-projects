@@ -1,24 +1,46 @@
-// public class EternalGoal : Goal
-// {
-// 	public EternalGoal(string shortName, string description, int points) : base(shortName, description, points)
-// 	{
-// 		// _isComplete = false;
-// 	}
+public class EternalGoal : Goal
+{
+	private List<string> _events;
 
-// 	public override void RecordEvent()
-// 	{
-// 		// _isComplete = true;
-// 		return string;
-// 	}
+	public EternalGoal(string name, string description, int points) : base(name, description, points)
+	{
+		_events = new List<string>();
+	}
 
-// 	public override bool IsComplete()
-// 	{
-// 		// return _isComplete;
-// 		return bool;
-// 	}
+	public override void RecordEvent(string eventDescription)
+	{
+		_events.Add(eventDescription);
+		Console.WriteLine($"Event recorded for eternal goal '{Name}': {eventDescription}");
+	}
 
-// 	public override string GetStringRepresntation()
-// 	{
-// 		return string;
-// 	}
-// }
+	public override bool CheckIfCompleted()
+	{
+		Console.WriteLine($"Eternal goal '{Name}' is ongoing and cannot be completed.");
+		return false; // Eternal goals are never completed
+	}
+
+	public override void CompleteGoal()
+	{
+		Console.WriteLine($"Eternal goal '{Name}' is ongoing and cannot be completed.");
+	}
+
+	public override string GetDetailsString()
+	{
+		return $"{Name}: {Description} - Points: {Points}";
+	}
+
+	public override string GetStringRepresentation()
+	{
+		return $"{Name}: {Description} - Points: {Points}";
+	}
+
+	public override List<string> GetEvents()
+	{
+		return _events;
+	}
+
+	public override bool IsCompleted()
+	{
+		return false; // Eternal goals are never completed
+	}
+}
