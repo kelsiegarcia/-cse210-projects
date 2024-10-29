@@ -1,121 +1,113 @@
 using System;
 using System.Collections.Generic;
+
 class Program
 {
 	static void Main(string[] args)
 	{
-		List<Goal> goals = new List<Goal>();
+		int runningPoints = 0;
+		GoalManager manager = new GoalManager(runningPoints);
+		bool running = true;
 
-		Console.WriteLine("Welcome to the Goal Quest Game!");
-		while (true)
+		while (running)
 		{
-			Console.WriteLine("\n1. Add New Goal");
-			Console.WriteLine("\n2. List Goals");
-			Console.WriteLine("\n3. Save Goals");
-			Console.WriteLine("\n4. Record Goal");
-			Console.WriteLine("\n5. Show Goals");
-			Console.WriteLine("\n6. Exit");
-			Console.Write("Choose an option: ");
+			manager.DisplayScore();
+			Console.WriteLine("\nMenu Options: ");
+
+			Console.WriteLine("1. Create New Goal");
+			Console.WriteLine("2. List Goals");
+			Console.WriteLine("3. Save Goals");
+			Console.WriteLine("4. Load Goals");
+			Console.WriteLine("5. Record Event");
+			Console.WriteLine("6. Display Score");
+			Console.WriteLine("7. Quit");
+			Console.Write("Select a choice from the menu: ");
+
 			string choice = Console.ReadLine();
 
 			switch (choice)
 			{
 				case "1":
-					Console.WriteLine("1. Simple Goal");
-					Console.WriteLine("2. Eternal Goal");
-					Console.Write("Choose a goal type: ");
-					string goalType = Console.ReadLine();
-					switch (goalType)
-					{
-						case "1":
-							Console.Write("Enter goal name: ");
-							string simpleName = Console.ReadLine();
-							Console.Write("Enter goal description: ");
-							string simpleDescription = Console.ReadLine();
-							Console.Write("Enter points: ");
-							int simplePoints = int.Parse(Console.ReadLine());
-							goals.Add(new SimpleGoal(simpleName, simpleDescription, simplePoints));
-							break;
-						case "2":
-							Console.Write("Enter goal name: ");
-							string eternalName = Console.ReadLine();
-							Console.Write("Enter goal description: ");
-							string eternalDescription = Console.ReadLine();
-							Console.Write("Enter points: ");
-							int eternalPoints = int.Parse(Console.ReadLine());
-							goals.Add(new EternalGoal(eternalName, eternalDescription, eternalPoints));
-							break;
-						case "3":
-							Console.WriteLine("Invalid option. Please try again.");
-							break;
-					}
+					CreateGoal(manager);
 					break;
 				case "2":
-					//list the goals
-					Console.WriteLine("Goals:");
-					foreach (var g in goals)
-					{
-						Console.WriteLine($"- {g.Name}: {g.Description} (Completed: {g.IsCompleted})");
-					}
+					manager.DisplayGoals();
 					break;
 				case "3":
-					//save the goals
-					Console.Write("Enter file name: ");
-					string fileName = Console.ReadLine();
-					using (StreamWriter writer = new StreamWriter(fileName))
-					{
-						foreach (var g in goals)
-						{
-							writer.WriteLine($"{g.Name},{g.Description},{g.IsCompleted}");
-						}
-					}
+					Console.Write("Enter filename to save: ");
+					manager.SaveGoals(Console.ReadLine());
 					break;
 				case "4":
-					//record a goal
-					Console.Write("Enter goal name to record: ");
-					string goalName = Console.ReadLine();
-					Goal goal = goals.Find(g => g.Name == goalName);
-					if (goal != null)
-					{
-						Console.Write("Enter event description: ");
-						string eventDescription = Console.ReadLine();
-						goal.RecordEvent(eventDescription);
-					}
-					else
-					{
-						Console.WriteLine("Goal not found.");
-					}
+					Console.Write("Enter filename to load: ");
+					string filename = Console.ReadLine();
+					manager.LoadGoals(filename);
 					break;
 				case "5":
-					//show the goals
-					Console.Write("Enter goal name: ");
-					string goalNameToShow = Console.ReadLine();
-					Goal goalToShow = goals.Find(g => g.Name == goalNameToShow);
-					if (goalToShow != null)
-					{
-						Console.WriteLine($"Goal: {goalToShow.Name}");
-						Console.WriteLine($"Description: {goalToShow.Description}");
-						Console.WriteLine($"Completed: {goalToShow.CheckIfCompleted()}");
-						Console.WriteLine("Events:");
-						foreach (var e in goalToShow.GetEvents())
-						{
-							Console.WriteLine($"- {e}");
-						}
-					}
-					else
-					{
-						Console.WriteLine("Goal not found.");
-					}
+					RecordEvent(manager);
 					break;
 				case "6":
-					//exit the program
-					Console.WriteLine("Goodbye!");
+					manager.DisplayScore();
+					break;
+				case "7":
+					running = false;
 					break;
 				default:
-					Console.WriteLine("Invalid option. Please try again.");
+					Console.WriteLine("Invalid choice. Please try again.");
 					break;
-
 			}
 		}
+	}
+
+	static void CreateGoal(GoalManager manager)
+	{
+		Console.WriteLine("\nThe types of Goals are: ");
+
+		Console.WriteLine("1. Simple Goal");
+		Console.WriteLine("2. Eternal Goal");
+		Console.WriteLine("3. Checklist Goal");
+		Console.Write("Which type of goal would you like to create? ");
+
+		string choice = Console.ReadLine();
+
+		Console.Write("What is the name of your goal? ");
+		string name = Console.ReadLine();
+
+		Console.Write("What is a short description of it? ");
+		string description = Console.ReadLine();
+
+		Console.Write("What is the amount of points associated with this goal? ");
+		int points = int.Parse(Console.ReadLine());
+
+		switch (choice)
+		{
+			case "1":
+				manager.AddGoal(new SimpleGoal(name, description, points));
+				break;
+			case "2":
+				manager.AddGoal(new EternalGoal(name, description, points));
+				break;
+			case "3":
+				Console.Write("How many times does this goal need to be accomplished for a bonus? ");
+				int target = int.Parse(Console.ReadLine());
+
+				Console.Write("What is the bonus for accomplishing it that many times? ");
+				int bonus = int.Parse(Console.ReadLine());
+
+				manager.AddGoal(new ChecklistGoal(name, description, points, target, bonus));
+				break;
+		}
+	}
+
+	static void RecordEvent(GoalManager manager)
+	{
+		Console.WriteLine("\nThe goals are: ");
+
+		manager.DisplayGoals();
+
+		Console.Write("\nWhich goal did you accomplish ? ");
+
+		int goalIndex = int.Parse(Console.ReadLine()) - 1;
+
+		manager.RecordEvent(goalIndex);
 	}
 }

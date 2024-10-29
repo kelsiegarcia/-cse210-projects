@@ -3,22 +3,23 @@ using System.Collections.Generic;
 
 public abstract class Goal
 {
-	public string Name { get; }
-	public string Description { get; }
-	public int Points { get; }
+	protected string _shortName;
+	protected string _description;
+	public int _points;
+	protected bool _isComplete;
 
 	public Goal(string name, string description, int points)
 	{
-		Name = name;
-		Description = description;
-		Points = points;
+		_shortName = name;
+		_description = description;
+		_points = points;
+		_isComplete = false;
 	}
 
-	public abstract void RecordEvent(string eventDescription);
-	public abstract bool IsCompleted();
-	public abstract bool CheckIfCompleted();
-	public abstract void CompleteGoal();
-	public abstract string GetDetailsString();
+	public abstract void RecordEvent();
 	public abstract string GetStringRepresentation();
-	public abstract List<string> GetEvents();
+	public abstract bool IsComplete();
+
+	public abstract string GetDetailsString();
+
 }
